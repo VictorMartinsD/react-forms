@@ -1,12 +1,21 @@
 import "./App.css";
+import { useState } from "react";
 
 export default function App() {
+  const [name, setName] = useState("");
+
+  function onSubmit(e: React.MouseEvent<HTMLElement>) {
+    e.preventDefault();
+
+    setName("");
+  }
+
   return (
     <div>
       <h1>Evento</h1>
 
-      <form>
-        <input type="text" placeholder="Nome do evento" />
+      <form onClick={onSubmit}>
+        <input type="text" placeholder="Nome do evento" value={name} onChange={(e) => setName(e.target.value)} />
         <span className="error">Nome é obrigatório</span>
 
         <input type="date" placeholder="Nome do evento" lang="pt-BR" />
