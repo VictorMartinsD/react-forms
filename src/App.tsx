@@ -12,13 +12,15 @@ type FormData = {
 };
 
 const schema = yup.object({
-  name: yup.string().required("Nome é obrigatório"),
+  name: yup.string().trim().required("Nome é obrigatório").max(80, "O nome deve ter no máximo 80 caracteres"),
   date: yup.string().required("Data é obrigatória"),
   subject: yup.string().required("Selecione um assunto"),
   description: yup
     .string()
+    .trim()
     .required("Descrição é obrigatória")
-    .min(10, "A descrição precisa ter pelo menos 10 dígitos"),
+    .min(10, "A descrição precisa ter pelo menos 10 caracteres")
+    .max(500, "A descrição deve ter no máximo 500 caracteres"),
 });
 
 export default function App() {
@@ -60,15 +62,28 @@ export default function App() {
           <p>Preencha as informações para começar a montar sua experiência.</p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit, () => setIsSubmitted(false))}>
           <div className="field-group">
             <label htmlFor="name">Nome do evento</label>
             <Controller
               control={control}
               name="name"
-              render={({ field }) => <input id="name" type="text" placeholder="Ex: React Summit" {...field} />}
+              render={({ field }) => (
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Ex: React Summit"
+                  aria-invalid={Boolean(errors.name)}
+                  aria-describedby={errors.name ? "name-error" : undefined}
+                  {...field}
+                />
+              )}
             />
-            {errors.name?.message && <span className="error">{errors.name.message}</span>}
+            {errors.name?.message && (
+              <span id="name-error" className="error">
+                {errors.name.message}
+              </span>
+            )}
           </div>
 
           <div className="field-group">
@@ -76,9 +91,21 @@ export default function App() {
             <Controller
               control={control}
               name="date"
-              render={({ field }) => <input id="date" type="date" {...field} />}
+              render={({ field }) => (
+                <input
+                  id="date"
+                  type="date"
+                  aria-invalid={Boolean(errors.date)}
+                  aria-describedby={errors.date ? "date-error" : undefined}
+                  {...field}
+                />
+              )}
             />
-            {errors.date?.message && <span className="error">{errors.date.message}</span>}
+            {errors.date?.message && (
+              <span id="date-error" className="error">
+                {errors.date.message}
+              </span>
+            )}
           </div>
 
           <div className="field-group">
@@ -87,7 +114,11 @@ export default function App() {
               control={control}
               name="subject"
               render={({ field }) => (
-                <select id="subject" {...field}>
+                <select
+                  id="subject"
+                  aria-invalid={Boolean(errors.subject)}
+                  aria-describedby={errors.subject ? "subject-error" : undefined}
+                  {...field}>
                   <option value="" disabled>
                     Selecione um assunto
                   </option>
@@ -98,7 +129,11 @@ export default function App() {
                 </select>
               )}
             />
-            {errors.subject?.message && <span className="error">{errors.subject.message}</span>}
+            {errors.subject?.message && (
+              <span id="subject-error" className="error">
+                {errors.subject.message}
+              </span>
+            )}
           </div>
 
           <div className="field-group">
@@ -111,11 +146,17 @@ export default function App() {
                   id="description"
                   placeholder="Conte um pouco sobre o que você está planejando"
                   rows={5}
+                  aria-invalid={Boolean(errors.description)}
+                  aria-describedby={errors.description ? "description-error" : undefined}
                   {...field}
                 />
               )}
             />
-            {errors.description?.message && <span className="error">{errors.description.message}</span>}
+            {errors.description?.message && (
+              <span id="description-error" className="error">
+                {errors.description.message}
+              </span>
+            )}
           </div>
 
           {isSubmitted && (
