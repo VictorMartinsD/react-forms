@@ -73,6 +73,7 @@ export default function App() {
                   id="name"
                   type="text"
                   placeholder="Ex: React Summit"
+                  maxLength={80}
                   aria-invalid={Boolean(errors.name)}
                   aria-describedby={errors.name ? "name-error" : undefined}
                   {...field}
@@ -146,6 +147,7 @@ export default function App() {
                   id="description"
                   placeholder="Conte um pouco sobre o que você está planejando"
                   rows={5}
+                  maxLength={500}
                   aria-invalid={Boolean(errors.description)}
                   aria-describedby={errors.description ? "description-error" : undefined}
                   {...field}
