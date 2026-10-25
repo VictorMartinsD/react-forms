@@ -7,6 +7,7 @@ import * as yup from "yup";
 type FormData = {
   name: string;
   date: string;
+  time: string;
   subject: string;
   otherSubject?: string;
   description: string;
@@ -27,6 +28,21 @@ function isSunday(dateValue: string) {
   return new Date(year, month - 1, day).getDay() === 0;
 }
 
+function getAvailableTimes(dateValue: string) {
+  if (!dateValue || isSunday(dateValue)) {
+    return [];
+  }
+
+  const [year, month, day] = dateValue.split("-").map(Number);
+  const dayOfWeek = new Date(year, month - 1, day).getDay();
+  const startHour = dayOfWeek === 6 ? 9 : 8;
+  const endHour = dayOfWeek === 6 ? 13 : 18;
+
+  return Array.from({ length: endHour - startHour + 1 }, (_, index) => {
+    return `${String(startHour + index).padStart(2, "0")}:00`;
+  });
+}
+
 const schema = yup.object({
   name: yup.string().trim().required("Nome é obrigatório").max(80, "O nome deve ter no máximo 80 caracteres"),
   date: yup
@@ -37,6 +53,13 @@ const schema = yup.object({
     })
     .test("not-sunday", "Domingos não estão disponíveis", (value) => {
       return !value || !isSunday(value);
+    }),
+  time: yup
+    .string()
+    .required("Horário é obrigatório")
+    .test("available-time", "Escolha um horário disponível", function (value) {
+      const { date } = this.parent as FormData;
+      return !value || getAvailableTimes(date).includes(value);
     }),
   subject: yup.string().required("Selecione um assunto"),
   otherSubject: yup.string().when("subject", {
@@ -59,12 +82,16 @@ export default function App() {
 
   const {
     control,
+    clearErrors,
     handleSubmit,
+    setError,
+    setValue,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
       name: "",
       date: "",
+      time: "",
       subject: "",
       otherSubject: "",
       description: "",
@@ -73,8 +100,10 @@ export default function App() {
   });
 
   const nameValue = useWatch({ control, name: "name" });
+  const dateValue = useWatch({ control, name: "date" });
   const subjectValue = useWatch({ control, name: "subject" });
   const descriptionValue = useWatch({ control, name: "description" });
+  const timeOptions = getAvailableTimes(dateValue);
 
   function onSubmit(data: FormData) {
     setIsSubmitted(true);
@@ -127,33 +156,69 @@ export default function App() {
             </span>
           </div>
 
-          <div className="field-group">
-            <label htmlFor="date">Data do evento</label>
-            <Controller
-              control={control}
-              name="date"
-              render={({ field }) => (
-                <input
-                  id="date"
-                  type="date"
-                  min={minDate}
-                  aria-invalid={Boolean(errors.date)}
-                  aria-describedby={errors.date ? "date-error" : undefined}
-                  {...field}
-                  onChange={(event) => {
-                    if (isSunday(event.target.value)) {
-                      event.target.value = field.value;
-                      return;
-                    }
+          <div className="date-time-fields">
+            <div className="field-group">
+              <label htmlFor="date">Data do evento</label>
+              <Controller
+                control={control}
+                name="date"
+                render={({ field }) => (
+                  <input
+                    id="date"
+                    type="date"
+                    min={minDate}
+                    aria-invalid={Boolean(errors.date)}
+                    aria-describedby={errors.date ? "date-error" : undefined}
+                    {...field}
+                    onChange={(event) => {
+                      if (isSunday(event.target.value)) {
+                        event.target.value = field.value;
+                        setError("date", {
+                          type: "validate",
+                          message: "Domingos não estão disponíveis",
+                        });
+                        return;
+                      }
 
-                    field.onChange(event);
-                  }}
-                />
-              )}
-            />
-            <span id="date-error" className="error">
-              {errors.date?.message}
-            </span>
+                      clearErrors("date");
+                      field.onChange(event);
+                      setValue("time", "");
+                    }}
+                  />
+                )}
+              />
+              <span id="date-error" className="error">
+                {errors.date?.message}
+              </span>
+            </div>
+
+            <div className="field-group">
+              <label htmlFor="time">Horário</label>
+              <Controller
+                control={control}
+                name="time"
+                render={({ field }) => (
+                  <select
+                    id="time"
+                    disabled={!dateValue || timeOptions.length === 0}
+                    aria-invalid={Boolean(errors.time)}
+                    aria-describedby={errors.time ? "time-error" : undefined}
+                    {...field}>
+                    <option value="" disabled>
+                      {dateValue ? "Selecione um horário" : "Selecione data primeiro"}
+                    </option>
+                    {timeOptions.map((time) => (
+                      <option key={time} value={time}>
+                        {time}
+                      </option>
+                    ))}
+                  </select>
+                )}
+              />
+              <span id="time-error" className="error">
+                {errors.time?.message}
+              </span>
+            </div>
           </div>
 
           <div className={`subject-fields${subjectValue === "other" ? " has-other" : ""}`}>
