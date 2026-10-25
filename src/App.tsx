@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -40,6 +40,9 @@ export default function App() {
     resolver: yupResolver(schema),
   });
 
+  const nameValue = useWatch({ control, name: "name" });
+  const descriptionValue = useWatch({ control, name: "description" });
+
   function onSubmit(data: FormData) {
     setIsSubmitted(true);
     console.log(data);
@@ -64,7 +67,10 @@ export default function App() {
 
         <form onSubmit={handleSubmit(onSubmit, () => setIsSubmitted(false))}>
           <div className="field-group">
-            <label htmlFor="name">Nome do evento</label>
+            <div className="field-label-row">
+              <label htmlFor="name">Nome do evento</label>
+              <span className="character-count">{nameValue.length}/80</span>
+            </div>
             <Controller
               control={control}
               name="name"
@@ -138,7 +144,10 @@ export default function App() {
           </div>
 
           <div className="field-group">
-            <label htmlFor="description">Descrição</label>
+            <div className="field-label-row">
+              <label htmlFor="description">Descrição</label>
+              <span className="character-count">{descriptionValue.length}/500</span>
+            </div>
             <Controller
               control={control}
               name="description"

@@ -115,6 +115,18 @@ label {
   font-weight: 600;
 }
 
+.field-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.character-count {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
 input,
 select,
 textarea {
