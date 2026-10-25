@@ -308,6 +308,14 @@ export default function App() {
           <button type="submit">Salvar evento</button>
         </form>
       </section>
+
+      <footer className="site-footer">
+        Crafted with precision by{" "}
+        <a href="https://github.com/VictorMartinsD" target="_blank" rel="noreferrer">
+          Victor Martins Dias
+        </a>{" "}
+        © 2026
+      </footer>
     </main>
   );
 }
