@@ -11,9 +11,32 @@ type FormData = {
   description: string;
 };
 
+function getDateString(daysFromToday = 0) {
+  const date = new Date();
+  date.setDate(date.getDate() + daysFromToday);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function isSunday(dateValue: string) {
+  const [year, month, day] = dateValue.split("-").map(Number);
+  return new Date(year, month - 1, day).getDay() === 0;
+}
+
 const schema = yup.object({
   name: yup.string().trim().required("Nome é obrigatório").max(80, "O nome deve ter no máximo 80 caracteres"),
-  date: yup.string().required("Data é obrigatória"),
+  date: yup
+    .string()
+    .required("Data é obrigatória")
+    .test("not-today", "Escolha uma data a partir de amanhã", (value) => {
+      return !value || value >= getDateString(1);
+    })
+    .test("not-sunday", "Domingos não estão disponíveis", (value) => {
+      return !value || !isSunday(value);
+    }),
   subject: yup.string().required("Selecione um assunto"),
   description: yup
     .string()
@@ -25,6 +48,7 @@ const schema = yup.object({
 
 export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const minDate = getDateString(1);
 
   const {
     control,
@@ -102,9 +126,18 @@ export default function App() {
                 <input
                   id="date"
                   type="date"
+                  min={minDate}
                   aria-invalid={Boolean(errors.date)}
                   aria-describedby={errors.date ? "date-error" : undefined}
                   {...field}
+                  onChange={(event) => {
+                    if (isSunday(event.target.value)) {
+                      event.target.value = field.value;
+                      return;
+                    }
+
+                    field.onChange(event);
+                  }}
                 />
               )}
             />
