@@ -286,7 +286,7 @@ export default function App() {
                 <textarea
                   id="description"
                   placeholder="Conte um pouco sobre o que você está planejando"
-                  rows={5}
+                  rows={4}
                   maxLength={500}
                   aria-invalid={Boolean(errors.description)}
                   aria-describedby={errors.description ? "description-error" : undefined}
@@ -299,11 +299,11 @@ export default function App() {
             </span>
           </div>
 
-          {isSubmitted && (
+          <div className={`submission-feedback${isSubmitted ? " is-visible" : ""}`} aria-live="polite">
             <p className="success-message" role="status">
               Evento salvo com sucesso. Agora você pode continuar o planejamento.
             </p>
-          )}
+          </div>
 
           <button type="submit">Salvar evento</button>
         </form>

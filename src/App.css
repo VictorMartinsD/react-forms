@@ -235,13 +235,34 @@ button:active {
   font-size: 0.75rem;
 }
 
+.submission-feedback {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.35s ease-out,
+    opacity 0.2s ease-out;
+}
+
+.submission-feedback.is-visible {
+  max-height: 6rem;
+  opacity: 1;
+}
+
 .success-message {
+  margin: 0;
   padding: 0.85rem 1rem;
   border: 1px solid rgba(185, 236, 140, 0.28);
   border-radius: 4px;
   background: rgba(185, 236, 140, 0.08);
   color: var(--color-success);
   font-size: 0.85rem;
+  transform: translateY(-0.5rem);
+  transition: transform 0.35s ease-out;
+}
+
+.submission-feedback.is-visible .success-message {
+  transform: translateY(0);
 }
 
 @media (max-width: 760px) {
@@ -268,5 +289,18 @@ button:active {
   .date-time-fields {
     grid-template-columns: 1fr;
     gap: 0.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submission-feedback,
+  .success-message {
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .success-message {
+    animation: none;
   }
 }
