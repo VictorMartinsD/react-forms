@@ -116,6 +116,16 @@ form {
   gap: 0.1rem;
 }
 
+.subject-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.subject-fields.has-other {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
 label {
   color: var(--color-text);
   font-size: 0.85rem;
@@ -238,5 +248,14 @@ button:active {
 
   .intro h1 {
     max-width: 12ch;
+  }
+
+  .subject-fields {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .subject-fields.has-other {
+    grid-template-columns: 1fr;
   }
 }

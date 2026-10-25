@@ -8,6 +8,7 @@ type FormData = {
   name: string;
   date: string;
   subject: string;
+  otherSubject?: string;
   description: string;
 };
 
@@ -38,6 +39,12 @@ const schema = yup.object({
       return !value || !isSunday(value);
     }),
   subject: yup.string().required("Selecione um assunto"),
+  otherSubject: yup.string().when("subject", {
+    is: "other",
+    then: (fieldSchema) =>
+      fieldSchema.trim().required("Informe o outro assunto").max(15, "O assunto deve ter no máximo 15 caracteres"),
+    otherwise: (fieldSchema) => fieldSchema.notRequired(),
+  }),
   description: yup
     .string()
     .trim()
@@ -59,12 +66,14 @@ export default function App() {
       name: "",
       date: "",
       subject: "",
+      otherSubject: "",
       description: "",
     },
     resolver: yupResolver(schema),
   });
 
   const nameValue = useWatch({ control, name: "name" });
+  const subjectValue = useWatch({ control, name: "subject" });
   const descriptionValue = useWatch({ control, name: "description" });
 
   function onSubmit(data: FormData) {
@@ -147,30 +156,57 @@ export default function App() {
             </span>
           </div>
 
-          <div className="field-group">
-            <label htmlFor="subject">Assunto principal</label>
-            <Controller
-              control={control}
-              name="subject"
-              render={({ field }) => (
-                <select
-                  id="subject"
-                  aria-invalid={Boolean(errors.subject)}
-                  aria-describedby={errors.subject ? "subject-error" : undefined}
-                  {...field}>
-                  <option value="" disabled>
-                    Selecione um assunto
-                  </option>
-                  <option value="react">React</option>
-                  <option value="nodejs">Node.js</option>
-                  <option value="javascript">JavaScript</option>
-                  <option value="typescript">TypeScript</option>
-                </select>
-              )}
-            />
-            <span id="subject-error" className="error">
-              {errors.subject?.message}
-            </span>
+          <div className={`subject-fields${subjectValue === "other" ? " has-other" : ""}`}>
+            <div className="field-group">
+              <label htmlFor="subject">Assunto principal</label>
+              <Controller
+                control={control}
+                name="subject"
+                render={({ field }) => (
+                  <select
+                    id="subject"
+                    aria-invalid={Boolean(errors.subject)}
+                    aria-describedby={errors.subject ? "subject-error" : undefined}
+                    {...field}>
+                    <option value="" disabled>
+                      Selecione um assunto
+                    </option>
+                    <option value="react">React</option>
+                    <option value="nodejs">Node.js</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="typescript">TypeScript</option>
+                    <option value="other">Outro</option>
+                  </select>
+                )}
+              />
+              <span id="subject-error" className="error">
+                {errors.subject?.message}
+              </span>
+            </div>
+
+            {subjectValue === "other" && (
+              <div className="field-group">
+                <label htmlFor="otherSubject">Outro assunto</label>
+                <Controller
+                  control={control}
+                  name="otherSubject"
+                  render={({ field }) => (
+                    <input
+                      id="otherSubject"
+                      type="text"
+                      placeholder="Digite o assunto"
+                      maxLength={15}
+                      aria-invalid={Boolean(errors.otherSubject)}
+                      aria-describedby={errors.otherSubject ? "other-subject-error" : undefined}
+                      {...field}
+                    />
+                  )}
+                />
+                <span id="other-subject-error" className="error">
+                  {errors.otherSubject?.message}
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="field-group">
