@@ -86,7 +86,10 @@ export default function App() {
         <div className="form-heading">
           <p className="step-label">Etapa 01</p>
           <h2 id="form-title">Detalhes do evento</h2>
-          <p>Preencha as informações para começar a montar sua experiência.</p>
+          <p>
+            Preencha as informações para começar a montar sua experiência.
+            <span className="form-note">Todos os campos são obrigatórios!</span>
+          </p>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit, () => setIsSubmitted(false))}>
