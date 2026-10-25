@@ -6,6 +6,27 @@
 
 * {
   margin: 0;
+  scrollbar-color: #343a40 #111315;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #111315;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid #111315;
+  border-radius: 6px;
+  background: #343a40;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #4b545b;
 }
 
 html,

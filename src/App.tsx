@@ -113,11 +113,9 @@ export default function App() {
                 />
               )}
             />
-            {errors.name?.message && (
-              <span id="name-error" className="error">
-                {errors.name.message}
-              </span>
-            )}
+            <span id="name-error" className="error">
+              {errors.name?.message}
+            </span>
           </div>
 
           <div className="field-group">
@@ -144,11 +142,9 @@ export default function App() {
                 />
               )}
             />
-            {errors.date?.message && (
-              <span id="date-error" className="error">
-                {errors.date.message}
-              </span>
-            )}
+            <span id="date-error" className="error">
+              {errors.date?.message}
+            </span>
           </div>
 
           <div className="field-group">
@@ -172,11 +168,9 @@ export default function App() {
                 </select>
               )}
             />
-            {errors.subject?.message && (
-              <span id="subject-error" className="error">
-                {errors.subject.message}
-              </span>
-            )}
+            <span id="subject-error" className="error">
+              {errors.subject?.message}
+            </span>
           </div>
 
           <div className="field-group">
@@ -199,11 +193,9 @@ export default function App() {
                 />
               )}
             />
-            {errors.description?.message && (
-              <span id="description-error" className="error">
-                {errors.description.message}
-              </span>
-            )}
+            <span id="description-error" className="error">
+              {errors.description?.message}
+            </span>
           </div>
 
           {isSubmitted && (
