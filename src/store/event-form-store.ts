@@ -12,6 +12,7 @@ export type EventFormData = {
 
 type EventFormStore = {
   formData: EventFormData;
+  clearFormData: () => void;
   saveFormData: (data: Partial<EventFormData>) => void;
 };
 
@@ -28,6 +29,7 @@ export const useEventFormStore = create<EventFormStore>()(
   persist(
     (set) => ({
       formData: initialFormData,
+      clearFormData: () => set({ formData: initialFormData }),
       saveFormData: (data) =>
         set((state) => ({
           formData: { ...state.formData, ...data },

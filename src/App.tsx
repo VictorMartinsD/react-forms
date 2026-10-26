@@ -72,12 +72,14 @@ export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const minDate = getDateString(1);
   const savedFormData = useEventFormStore.getState().formData;
+  const clearFormData = useEventFormStore((state) => state.clearFormData);
   const saveFormData = useEventFormStore((state) => state.saveFormData);
 
   const {
     control,
     clearErrors,
     handleSubmit,
+    reset,
     setError,
     setValue,
     formState: { errors },
@@ -94,10 +96,18 @@ export default function App() {
   const timeOptions = getAvailableTimes(dateValue);
 
   useEffect(() => {
+    if (!Object.values(formValues).some(Boolean)) {
+      useEventFormStore.persist.clearStorage();
+      return;
+    }
+
     saveFormData(formValues);
   }, [formValues, saveFormData]);
 
   function onSubmit(data: EventFormData) {
+    clearFormData();
+    useEventFormStore.persist.clearStorage();
+    reset(initialFormData);
     setIsSubmitted(true);
     console.log(data);
   }
