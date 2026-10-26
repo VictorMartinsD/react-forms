@@ -1,17 +1,9 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
-type FormData = {
-  name: string;
-  date: string;
-  time: string;
-  subject: string;
-  otherSubject?: string;
-  description: string;
-};
+import { initialFormData, useEventFormStore, type EventFormData } from "./store/event-form-store";
 
 function getDateString(daysFromToday = 0) {
   const date = new Date();
@@ -58,7 +50,7 @@ const schema = yup.object({
     .string()
     .required("Horário é obrigatório")
     .test("available-time", "Escolha um horário disponível", function (value) {
-      const { date } = this.parent as FormData;
+      const { date } = this.parent as EventFormData;
       return !value || getAvailableTimes(date).includes(value);
     }),
   subject: yup.string().required("Selecione um assunto"),
@@ -79,6 +71,8 @@ const schema = yup.object({
 export default function App() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const minDate = getDateString(1);
+  const savedFormData = useEventFormStore.getState().formData;
+  const saveFormData = useEventFormStore((state) => state.saveFormData);
 
   const {
     control,
@@ -87,25 +81,23 @@ export default function App() {
     setError,
     setValue,
     formState: { errors },
-  } = useForm<FormData>({
-    defaultValues: {
-      name: "",
-      date: "",
-      time: "",
-      subject: "",
-      otherSubject: "",
-      description: "",
-    },
+  } = useForm<EventFormData>({
+    defaultValues: savedFormData ?? initialFormData,
     resolver: yupResolver(schema),
   });
 
-  const nameValue = useWatch({ control, name: "name" });
-  const dateValue = useWatch({ control, name: "date" });
-  const subjectValue = useWatch({ control, name: "subject" });
-  const descriptionValue = useWatch({ control, name: "description" });
+  const formValues = useWatch({ control });
+  const nameValue = formValues.name ?? "";
+  const dateValue = formValues.date ?? "";
+  const subjectValue = formValues.subject ?? "";
+  const descriptionValue = formValues.description ?? "";
   const timeOptions = getAvailableTimes(dateValue);
 
-  function onSubmit(data: FormData) {
+  useEffect(() => {
+    saveFormData(formValues);
+  }, [formValues, saveFormData]);
+
+  function onSubmit(data: EventFormData) {
     setIsSubmitted(true);
     console.log(data);
   }
