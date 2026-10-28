@@ -254,6 +254,10 @@ As decisões de implementação e os desafios técnicos estão detalhados nas [N
 
 ---
 
+Projeto desenvolvido e documentado por [Victor Martins](https://github.com/VictorMartinsD).
+
+---
+
 <div align="center">
 
 ## English Version
@@ -493,3 +497,7 @@ npm run check
 The project consolidates typed forms, schema-based validation, conditional fields, date-dependent rules, and draft persistence in a React interface. It also exercises the separation between editing state, persisted state, and validation feedback.
 
 Implementation decisions and technical challenges are detailed in the [Study Notes](./docs/study-notes.md).
+
+---
+
+Project developed and documented by [Victor Martins](https://github.com/VictorMartinsD).
