@@ -57,7 +57,7 @@ const schema = yup.object({
   otherSubject: yup.string().when("subject", {
     is: "other",
     then: (fieldSchema) =>
-      fieldSchema.trim().required("Informe o outro assunto").max(15, "O assunto deve ter no máximo 15 caracteres"),
+      fieldSchema.trim().required("Informe o outro assunto").max(30, "O assunto deve ter no máximo 30 caracteres"),
     otherwise: (fieldSchema) => fieldSchema.notRequired(),
   }),
   description: yup
@@ -262,7 +262,7 @@ export default function App() {
                       id="otherSubject"
                       type="text"
                       placeholder="Digite o assunto"
-                      maxLength={15}
+                      maxLength={30}
                       aria-invalid={Boolean(errors.otherSubject)}
                       aria-describedby={errors.otherSubject ? "other-subject-error" : undefined}
                       {...field}
