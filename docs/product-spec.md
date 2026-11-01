@@ -8,8 +8,8 @@
 
 [![Repositório no GitHub](https://img.shields.io/badge/C%C3%B3digo%20Fonte-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VictorMartinsD/react-forms)
 [![Acessar Deploy](https://img.shields.io/badge/Acessar%20Deploy-GitHub%20Pages-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://victormartinsd.github.io/react-forms/)
-[![Notas de Estudo](https://img.shields.io/badge/Notas%20de%20Estudo-Documenta%C3%A7%C3%A3o-7c3aed?style=for-the-badge&logo=bookstack&logoColor=white)](./docs/study-notes.md)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](./docs/LICENSE)
+[![Notas de Estudo](https://img.shields.io/badge/Notas%20de%20Estudo-Documenta%C3%A7%C3%A3o-7c3aed?style=for-the-badge&logo=bookstack&logoColor=white)](https://github.com/VictorMartinsD/react-forms/blob/main/docs/study-notes.md)
+[![License: MIT](https://img.shields.io/badge/Licença-MIT-yellow.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](https://github.com/VictorMartinsD/react-forms/blob/main/LICENSE)
 
 </div>
 
@@ -259,8 +259,8 @@ Este documento descreve a visão funcional e estratégica do sistema.
 
 [![GitHub Repository](https://img.shields.io/badge/Source%20Code-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VictorMartinsD/react-forms)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://victormartinsd.github.io/react-forms/)
-[![Study Notes](https://img.shields.io/badge/Study%20Notes-Documentation-7c3aed?style=for-the-badge&logo=bookstack&logoColor=white)](./docs/study-notes.md)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](./docs/LICENSE)
+[![Study Notes](https://img.shields.io/badge/Study%20Notes-Documentation-7c3aed?style=for-the-badge&logo=bookstack&logoColor=white)](https://github.com/VictorMartinsD/react-forms/blob/main/docs/study-notes.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](https://github.com/VictorMartinsD/react-forms/blob/main/LICENSE)
 
 </div>
 
