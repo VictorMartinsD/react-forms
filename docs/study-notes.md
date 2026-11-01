@@ -2,9 +2,10 @@
 
 # Notas de Estudo — react-forms
 
-[![Repositório no GitHub](https://img.shields.io/badge/Código%20Fonte-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VictorMartinsD/react-forms)
-[![Acessar Deploy](https://img.shields.io/badge/Acessar%20Deploy-GitHub%20Pages-blue?style=for-the-badge)](https://victormartinsd.github.io/react-forms/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/VictorMartinsD/react-forms/blob/main/LICENSE)
+[![Repositório no GitHub](https://img.shields.io/badge/C%C3%B3digo%20Fonte-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VictorMartinsD/react-forms)
+[![Acessar Deploy](https://img.shields.io/badge/Acessar%20Deploy-GitHub%20Pages-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://victormartinsd.github.io/react-forms/)
+[![Especificação de Produto](https://img.shields.io/badge/Especifica%C3%A7%C3%A3o%20de%20Produto-Documenta%C3%A7%C3%A3o-64748b?style=for-the-badge&logo=jira&logoColor=white)](https://github.com/VictorMartinsD/react-forms/blob/main/docs/product-spec.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](https://github.com/VictorMartinsD/react-forms/blob/main/LICENSE)
 
 </div>
 
@@ -174,6 +175,13 @@ Notas de estudo técnico por [Victor Martins](https://github.com/VictorMartinsD)
 <div align="center">
 
 ## ENGLISH VERSION
+
+# Study Notes — react-forms
+
+[![GitHub Repository](https://img.shields.io/badge/Source%20Code-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VictorMartinsD/react-forms)
+[![Access Live Demo](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-blue?style=for-the-badge&logo=googlechrome&logoColor=white)](https://victormartinsd.github.io/react-forms/)
+[![Product Spec](https://img.shields.io/badge/Product%20Spec-Documentation-64748b?style=for-the-badge&logo=jira&logoColor=white)](https://github.com/VictorMartinsD/react-forms/blob/main/docs/product-spec.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](https://github.com/VictorMartinsD/react-forms/blob/main/LICENSE)
 
 </div>
 
